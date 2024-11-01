@@ -1,4 +1,3 @@
-ECHO is on.
 # Use an official Ubuntu image as the base image
 FROM ubuntu:20.04
 
