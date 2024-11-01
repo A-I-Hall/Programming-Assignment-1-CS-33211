@@ -7,6 +7,7 @@
  */
 
 #include "producer.hpp"
+<<<<<<< HEAD
 #include <iostream>
 #include <semaphore.h>
 #include <fcntl.h>
@@ -28,6 +29,17 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+=======
+#include "consumer.hpp"
+/**
+ * @brief The main function for the consumer
+ * 
+ * @param argc The number of arguments fed into the program
+ * @param argv Array to hold the command line-fed arguments, used for the shared memory file name
+ * @return int Exit status of the program
+ */
+int main(int argc, char *argv[]) {
+>>>>>>> 8b27319e2b015f9062b081343db903cf1962adb9
     // Variables
     int fd;
     const char* shmpath = argv[1];
