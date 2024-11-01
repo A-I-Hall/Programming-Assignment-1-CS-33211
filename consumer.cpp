@@ -1,37 +1,42 @@
- /**
+/**
  * @file consumer.cpp
  * @author Annika Hall
- * @brief The producer in the producer and consumer problem
+ * @brief The consumer in the producer and consumer problem
  * @date 2024-11-01
- * 
+ *
  */
 
-#include "../include/consumer.hpp"
-#include "../include/membuff.hpp"
+#include "producer.hpp"
+#include <iostream>
+#include <semaphore.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <unistd.h>
+#include <cstdlib>
+#include <ctime>
 
-/**
- * @brief The main function for the consumer
- * 
- * @param argc The number of arguments fed into the program
- * @param argv Array to hold the command line-fed arguments, used for the shared memory file name
- * @return int Exit status of the program
- */
-int main(int argc, char *argv[]) {
+ /**
+  * @brief The main function for the consumer
+  *
+  * @param argc The number of arguments fed into the program
+  * @param argv Array to hold the command line-fed arguments, used for the shared memory file name
+  * @return int Exit status of the program
+  */
+int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        std::cerr << "Usage: " << argv[0] << " <shared_memory_name>" << std::endl;
+        return 1;
+    }
+
     // Variables
     int fd;
-    const char *shmpath = argv[1];
-    struct sharedMem *consMem;
+    const char* shmpath = argv[1];
+    struct sharedMem* consMem;
 
     // Open shared memory
     fd = shm_open(shmpath, O_RDWR, 0);
     if (fd == -1) {
         perror("shm_open failed");
-        return 1;
-    }
-
-    // Set shared memory size
-    if (ftruncate(fd, sizeof(*consMem)) == -1) {
-        perror("ftruncate failed");
         return 1;
     }
 
@@ -59,7 +64,7 @@ int main(int argc, char *argv[]) {
         sem_post(&(consMem->empty));
 
         // Simulate variable consumption time
-        sleep(rand() % 10);
+        sleep(rand() % 2); // Shorter sleep time for faster testing
     }
 
     // Detach shared memory

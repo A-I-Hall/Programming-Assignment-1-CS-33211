@@ -3,26 +3,33 @@
  * @author Annika Hall
  * @brief The producer in the producer and consumer problem
  * @date 2024-11-01
- * 
  */
 
-#include "../include/producer.hpp"
-#include "../include/membuff.hpp"
+#include "producer.hpp"
+#include "consumer.hpp"
 
-/**
- * @brief The main function for the producer
- * 
- * @param argc The number of arguments fed into the program
- * @param argv Array to hold the command line fed arguments, used for the shared memory file name
- * @return int Exit status of the program
- */
+ /**
+  * @brief The main function for the producer
+  *
+  * @param argc The number of arguments fed into the program
+  * @param argv Array to hold the command line fed arguments, used for the shared memory file name
+  * @return int Exit status of the program
+  */
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
+    // Check command line argument
+    if (argc < 2) {
+        std::cerr << "Usage: " << argv[0] << " <shared_memory_name>" << std::endl;
+        return 1;
+    }
 
     // Variables
     int fd;
-    const char *shmpath = argv[1];
-    struct sharedMem *prodMem;
+    const char* shmpath = argv[1];
+    struct sharedMem* prodMem;
+
+    // Seed the random number generator
+    srand(static_cast<unsigned int>(time(nullptr)));
 
     // Open shared memory
     fd = shm_open(shmpath, O_CREAT | O_EXCL | O_RDWR, 0600);
