@@ -9,12 +9,12 @@ RUN apt-get update && \
     apt-get install -y build-essential g++ && \
     apt-get clean
 
-# Copy the current directory contents into the container at /app
+# Copy all contents of the current directory into the container
 COPY . .
 
 # Compile the producer and consumer programs
 RUN g++ producer.cpp -pthread -lrt -o producer
 RUN g++ consumer.cpp -pthread -lrt -o consumer
 
-# Command to run the programs
+# Command to keep the container running
 CMD ["bash"]
