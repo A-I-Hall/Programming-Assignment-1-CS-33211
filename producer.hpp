@@ -5,18 +5,18 @@
  * @date 2024-11-01
  * 
  */
+// producer.hpp
 
+#ifndef PRODUCER_HPP
+#define PRODUCER_HPP
 
-#ifndef CONSUMER_HPP
-#define CONSUMER_HPP
+#include <semaphore.h>
 
-#include <stdio.h>
-#include <unistd.h>
-#include <pthread.h>
-#include <iostream>
-#include <fcntl.h>
-#include <sys/mman.h>
-
-int main(int, char **);
+struct sharedMem {
+    sem_t full;  // Semaphore to count full slots
+    sem_t empty; // Semaphore to count empty slots
+    // Add other members as needed
+};
 
 #endif
+
