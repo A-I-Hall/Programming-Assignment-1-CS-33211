@@ -6,9 +6,8 @@
  * 
  */
 
-#include "../include/consumer.hpp"
-#include "../include/membuff.hpp"
-
+#include "producer.hpp"
+#include "consumer.hpp"
 /**
  * @brief The main function for the consumer
  * 
